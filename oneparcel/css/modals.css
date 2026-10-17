@@ -1,0 +1,213 @@
+/* LABEL MODAL */
+.label-modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.label-modal-overlay.visible { display: flex; }
+
+.label-modal {
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: 16px;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 380px;
+}
+
+.label-modal h3 {
+  font-family: var(--display);
+  font-size: 17px; font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+.label-modal p {
+  font-size: 13px;
+  color: var(--text2);
+  margin-bottom: 1rem;
+  font-family: var(--mono);
+}
+
+.label-modal input {
+  width: 100%;
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 14px;
+  padding: 12px 14px;
+  outline: none;
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.label-modal input:focus { border-color: var(--input-focus-border); }
+
+.label-modal-btns { display: flex; gap: 8px; }
+
+.label-modal-btns button {
+  flex: 1; height: 38px;
+  border-radius: 9px;
+  font-family: var(--sans);
+  font-size: 14px; font-weight: 500;
+  cursor: pointer; border: none;
+  transition: opacity 0.15s;
+}
+
+.label-modal-btns button:first-child {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  color: var(--text2);
+}
+
+.label-modal-btns button:last-child {
+  background: var(--accent-color, var(--blue));
+  color: white;
+}
+
+.label-modal-btns button:hover { opacity: 0.85; }
+
+/* QR SCANNER */
+.qr-modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(6px);
+  z-index: 300;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.qr-modal-overlay.visible { display: flex; }
+
+.qr-modal {
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: 20px;
+  padding: 1.5rem;
+  width: 100%; max-width: 360px;
+  text-align: center;
+}
+
+.qr-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.qr-modal-title {
+  font-family: var(--display);
+  font-size: 16px; font-weight: 700;
+  color: var(--text);
+}
+
+.qr-close {
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text2);
+}
+
+.qr-video-wrap {
+  position: relative;
+  width: 100%; aspect-ratio: 1;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #000;
+  margin-bottom: 1rem;
+}
+
+.qr-video-wrap video { width: 100%; height: 100%; object-fit: cover; }
+
+.qr-overlay-frame {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none;
+}
+
+.qr-frame {
+  width: 60%; aspect-ratio: 1;
+  border: 2px solid var(--accent-color, var(--blue));
+  border-radius: 12px;
+  box-shadow: 0 0 0 9999px rgba(0,0,0,0.45);
+  animation: qr-scan 2s ease-in-out infinite;
+}
+
+@keyframes qr-scan {
+  0%, 100% { border-color: var(--accent-color, var(--blue)); }
+  50% { border-color: rgba(255,255,255,0.6); }
+}
+
+.qr-hint {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text3);
+}
+
+/* PWA BANNER */
+.pwa-banner {
+  position: fixed;
+  bottom: 1.5rem; left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: 14px;
+  padding: 12px 16px;
+  display: none;
+  align-items: center;
+  gap: 12px;
+  z-index: 150;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  max-width: 360px;
+  width: calc(100% - 2rem);
+  animation: fadeUp 0.4s ease both;
+}
+
+.pwa-banner.visible { display: flex; }
+
+.pwa-banner-text { flex: 1; min-width: 0; }
+
+.pwa-banner-title {
+  font-family: var(--display);
+  font-size: 13px; font-weight: 700;
+  color: var(--text); margin-bottom: 2px;
+}
+
+.pwa-banner-sub {
+  font-family: var(--mono);
+  font-size: 11px; color: var(--text3);
+}
+
+.pwa-banner-btns { display: flex; gap: 6px; flex-shrink: 0; }
+
+.pwa-install-btn {
+  height: 32px; padding: 0 14px;
+  border-radius: 8px; border: none;
+  background: var(--accent-color, var(--blue));
+  color: white; font-family: var(--sans);
+  font-size: 12px; font-weight: 600;
+  cursor: pointer; white-space: nowrap;
+}
+
+.pwa-dismiss-btn {
+  height: 32px; width: 32px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: none; color: var(--text3);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}

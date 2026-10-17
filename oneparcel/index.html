@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>OneParcel — Track every courier in one place</title>
+<meta name="theme-color" content="#0a0a0b"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="OneParcel"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/base.css"/>
+<link rel="stylesheet" href="css/nav.css"/>
+<link rel="stylesheet" href="css/hero.css"/>
+<link rel="stylesheet" href="css/landing.css"/>
+<link rel="stylesheet" href="css/modals.css"/>
+<link rel="stylesheet" href="css/features.css"/>
+<!-- Vercel Web Analytics -->
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">
+    <div class="nav-logo-icon" style="background:var(--blue);">
+      <svg id="logoCloud" width="22" height="22" viewBox="0 0 24 24" fill="none">
+        <path d="M6.5 19a4.5 4.5 0 01-.5-9 1 1 0 01.08-.02A6 6 0 0118 12.5 3.5 3.5 0 0117.5 19H6.5z" fill="white"/>
+      </svg>
+      <svg id="logoParcel" width="20" height="20" viewBox="0 0 24 24" fill="none" style="display:none;">
+        <path d="M21 8L12 3 3 8v8l9 5 9-5V8z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/>
+        <path d="M3 8l9 5 9-5" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M12 13v8" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <span class="nav-logo-text">OneParcel</span>
+  </a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a class="nav-link" href="#couriers">Couriers</a>
+      <a class="nav-link" href="#how">How it works</a>
+    </div>
+    <a class="nav-cta" href="track.html">Track a parcel</a>
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle light/dark mode">
+      <span class="theme-toggle-track">
+        <span class="theme-toggle-thumb"></span>
+        <span class="theme-icon theme-icon-moon">
+          <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <path d="M10 7.5A5 5 0 015 2.5a5 5 0 100 9 5 5 0 005-4z"/>
+          </svg>
+        </span>
+        <span class="theme-icon theme-icon-sun">
+          <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <circle cx="6" cy="6" r="2.2"/>
+            <line x1="6" y1="1" x2="6" y2="2.2"/><line x1="6" y1="9.8" x2="6" y2="11"/>
+            <line x1="1" y1="6" x2="2.2" y2="6"/><line x1="9.8" y1="6" x2="11" y2="6"/>
+            <line x1="2.64" y1="2.64" x2="3.5" y2="3.5"/><line x1="8.5" y1="8.5" x2="9.36" y2="9.36"/>
+            <line x1="2.64" y1="9.36" x2="3.5" y2="8.5"/><line x1="8.5" y1="3.5" x2="9.36" y2="2.64"/>
+          </svg>
+        </span>
+      </span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero landing">
+  <div class="hero-glow"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-tag">
+    <div class="hero-tag-dot"></div>
+    <span>Live shipment tracking</span>
+  </div>
+
+  <h1>Track your<br/><span class="accent" id="heroAccent">courier</span><br/>Shipment</h1>
+
+  <p class="hero-sub">One page for every courier. Enter your AWB and OneParcel opens the official tracking page for you.</p>
+
+  <div class="hero-actions">
+    <a class="btn btn-primary" href="track.html">Start tracking</a>
+    <a class="btn btn-ghost" href="#couriers">See couriers</a>
+  </div>
+</section>
+
+<!-- COURIERS -->
+<section class="land-section" id="couriers">
+  <h2>Pick your courier</h2>
+  <p class="land-lead">Choose one and your tracking page opens with it already selected.</p>
+  <div class="ledger" id="ledger"></div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="land-section" id="how">
+  <h2>Three steps to your parcel</h2>
+  <p class="land-lead">No account, no sign-up.</p>
+  <div class="how">
+    <div class="how-step">
+      <div class="how-num">01</div>
+      <div class="how-title">Select your courier</div>
+      <div class="how-desc">Pick from the supported couriers. Nothing is pre-selected, so you always choose.</div>
+    </div>
+    <div class="how-step">
+      <div class="how-num">02</div>
+      <div class="how-title">Enter the number</div>
+      <div class="how-desc">Type it, paste it, or scan the barcode on the package with your camera.</div>
+    </div>
+    <div class="how-step">
+      <div class="how-num">03</div>
+      <div class="how-title">See live status</div>
+      <div class="how-desc">The courier's own tracking page opens in a new tab with your shipment loaded.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="section-label">Why use this</div>
+  <h2>Everything you need.<br/>Nothing you don't.</h2>
+  <div class="features-grid">
+    <div class="feat-card">
+      <div class="feat-icon">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#E31837" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="9" r="7"/><path d="M9 5v4l2.5 2.5"/>
+        </svg>
+      </div>
+      <div class="feat-title">Instant redirect</div>
+      <div class="feat-desc">Takes you directly to the official courier tracking page. No middlemen, no delays, no ads.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#E31837" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="12" height="12" rx="2"/><path d="M7 9l2 2 4-4"/>
+        </svg>
+      </div>
+      <div class="feat-title">Official data</div>
+      <div class="feat-desc">Pulls tracking information directly from each courier's own system. Always accurate, always up-to-date.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#E31837" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 9h10M9 4l5 5-5 5"/>
+        </svg>
+      </div>
+      <div class="feat-title">One-click tracking</div>
+      <div class="feat-desc">Paste your AWB, hit enter. That's it. Opens in a new tab so you never lose your place.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING CTA -->
+<section class="land-cta">
+  <h2>Got a tracking number?</h2>
+  <a class="btn btn-primary" href="track.html">Start tracking</a>
+</section>
+
+<!-- PWA INSTALL BANNER -->
+<div class="pwa-banner" id="pwaBanner">
+  <div class="pwa-banner-text">
+    <div class="pwa-banner-title">Install OneParcel</div>
+    <div class="pwa-banner-sub">Add to home screen for quick access</div>
+  </div>
+  <div class="pwa-banner-btns">
+    <button class="pwa-install-btn" onclick="installPWA()">Install</button>
+    <button class="pwa-dismiss-btn" onclick="dismissPWA()">
+      <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div style="display:flex;align-items:center;gap:8px;">
+    <div class="nav-logo-icon" style="width:28px;height:28px;border-radius:7px;background:var(--blue);">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
+        <path d="M6.5 19a4.5 4.5 0 01-.5-9 1 1 0 01.08-.02A6 6 0 0118 12.5 3.5 3.5 0 0117.5 19H6.5z" fill="white"/>
+      </svg>
+    </div>
+    <span style="font-family:var(--display);font-size:15px;font-weight:700;color:var(--text);">OneParcel</span>
+  </div>
+  <div class="footer-credits">
+    Created by <span>Tausique</span> &nbsp;·&nbsp; Powered by <span>CuriosityLabs</span>
+  </div>
+  <div class="footer-links">
+    <a href="https://www.bluedart.com" target="_blank">BlueDart</a>
+    <a href="https://www.delhivery.com" target="_blank">Delhivery</a>
+    <a href="https://ekartlogistics.com" target="_blank">Ekart</a>
+    <a href="https://www.dhl.com/in-en/home/tracking.html" target="_blank">DHL</a>
+    <a href="https://www.xpressbees.com" target="_blank">Xpressbees</a>
+    <a href="https://www.valmo.in" target="_blank">Valmo</a>
+    <a href="https://www.fedex.com/en-in/home.html" target="_blank">FedEx</a>
+    <a href="https://www.aramex.com" target="_blank">Aramex</a>
+    <a href="https://www.ups.com" target="_blank">UPS</a>
+    <a href="https://track.amazon.in" target="_blank">Amazon Shipping</a>
+  </div>
+  <div style="font-family:var(--mono);font-size:11px;color:var(--text3);margin-top:0.25rem;">
+    This tool redirects to official courier websites. Not affiliated with any courier.
+  </div>
+  <a class="footer-github" href="https://github.com/sheikhtausique/oneparcel" target="_blank" rel="noopener">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+    <span>View on GitHub</span>
+  </a>
+</footer>
+
+<script src="js/couriers.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/pwa.js"></script>
+<script src="js/landing.js"></script>
+
+</body>
+</html>
