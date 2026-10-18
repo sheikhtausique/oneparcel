@@ -73,9 +73,7 @@ function selectCourier(c, preserveInput = false) {
   document.getElementById('btn-' + c).classList.add('active-courier');
 
   // Restore card if it was in empty state
-  const card = document.getElementById('trackerCard');
-  card.style.opacity = '1';
-  card.style.pointerEvents = 'auto';
+  document.getElementById('trackerCard').classList.remove('idle');
 
   document.getElementById('captchaWarning').style.display = c === 'xpressbees' ? 'flex' : 'none';
 
@@ -161,8 +159,7 @@ function initEmpty() {
   root.style.setProperty('--input-focus-shadow', '0 0 0 3px rgba(100,100,120,0.08)');
   root.style.setProperty('--card-border-color',  'rgba(100,100,120,0.2)');
 
-  document.getElementById('trackerCard').style.opacity = '0.45';
-  document.getElementById('trackerCard').style.pointerEvents = 'none';
+  document.getElementById('trackerCard').classList.add('idle');
   document.getElementById('heroAccent').textContent = 'your';
   document.getElementById('tagText').textContent = 'Select a courier to begin';
   document.getElementById('heroSub').textContent = 'Choose your courier below to get started.';

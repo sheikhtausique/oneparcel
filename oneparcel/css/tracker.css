@@ -79,6 +79,19 @@
   transition: background 0.4s;
 }
 
+/* Nothing selected yet: dim the entry form, but keep saved shipments usable */
+.tracker-card.idle .active-courier-chip,
+.tracker-card.idle .input-label,
+.tracker-card.idle .bulk-toggle,
+.tracker-card.idle .input-wrap,
+.tracker-card.idle .track-btn,
+.tracker-card.idle .kbd-hint,
+.tracker-card.idle .share-row,
+.tracker-card.idle .steps {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
 /* COURIER CHIP */
 .active-courier-chip {
   display: inline-flex;
