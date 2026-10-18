@@ -6,17 +6,18 @@ OneParcel is a small web tool for people who order online and track shipments of
 
 **Live site:** oneprcel.vercel.app
 
-## Supported couriers
-
-BlueDart
-Delhivery
-Ekart
-DHL
-Xpressbees
-Valmo
-Aramex
-UPS
-Amazon Shipping
+| Courier | Number it asks for | Opens |
+| --- | --- | --- |
+| BlueDart | AWB number | bluedart.com |
+| Delhivery | AWB number | delhivery.com |
+| Ekart | AWB number | ekartlogistics.com |
+| DHL | AWB number | dhl.com (India) |
+| Xpressbees | AWB number | xpressbees.com |
+| Valmo | AWB number | valmo.in |
+| FedEx | Tracking number | fedex.com |
+| Aramex | Shipment number | aramex.com |
+| UPS | Tracking number | ups.com |
+| Amazon Shipping | Tracking number | track.amazon.in |
 
 OneParcel puts your number into each courier's tracking link. If a courier changes its link format, that courier will need updating in `js/couriers.js`.
 
