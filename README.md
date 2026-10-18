@@ -11,7 +11,7 @@ OneParcel is a small web tool for people who order online and track shipments of
 | BlueDart | AWB number | bluedart.com |
 | Delhivery | AWB number | delhivery.com |
 | Ekart | AWB number | ekartlogistics.com |
-| DHL | AWB number | dhl.com (India) |
+| DHL | AWB number | dhl.com |
 | Xpressbees | AWB number | xpressbees.com |
 | Valmo | AWB number | valmo.in |
 | FedEx | Tracking number | fedex.com |
