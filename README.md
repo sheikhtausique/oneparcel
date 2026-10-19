@@ -1,10 +1,10 @@
 # OneParcel
 
-Track parcels from many couriers on one page.
+Track parcels from many couriers on one page. Available in English, Hindi and Bengali.
 
 OneParcel is a small web tool for people who order online and track shipments often. You choose the courier, type or paste the tracking number, and it opens that courier's own tracking page in a new tab. It does not fetch or show tracking status itself. It saves you from finding the right courier site and the right input box each time.
 
-**Live site:** oneprcel.vercel.app
+**Live site:** [oneprcel.vercel.app](https://oneprcel.vercel.app)
 
 | Courier | Number it asks for | Opens |
 | --- | --- | --- |
@@ -37,6 +37,13 @@ OneParcel puts your number into each courier's tracking link. If a courier chang
 - Rename a shipment, for example "Shoes", and remove ones you no longer need.
 - Tap a saved shipment to open its tracking page again.
 
+**Languages**
+- English, Hindi (हिन्दी) and Bengali (বাংলা).
+- Change the language from the globe button in the header. The choice is remembered.
+- On a first visit the site follows the browser's language, and falls back to English.
+- Courier names and the tab title stay the same in every language.
+- Corrections to the Hindi and Bengali wording are welcome.
+
 **Interface**
 - Light and dark theme, remembered between visits.
 - Layout for both phones and desktop.
@@ -44,7 +51,7 @@ OneParcel puts your number into each courier's tracking link. If a courier chang
 ## Privacy
 
 - There is no account, no sign-up and no server of your own.
-- Your recent and pinned shipments, and your theme choice, are saved only in your browser's `localStorage`. They never leave your device.
+- Your recent and pinned shipments, and your theme and language choice, are saved only in your browser's `localStorage`. They never leave your device.
 - The site uses **Vercel Web Analytics** for basic page-view counts.
 - When you open a tracking page, the courier receives the tracking number as part of the link. That is how the redirect works.
 
@@ -57,16 +64,17 @@ OneParcel puts your number into each courier's tracking link. If a courier chang
 
 ## Built with
 
-Plain HTML, CSS and JavaScript. There is no framework and no build step. Fonts (Syne, DM Sans and DM Mono) load from Google Fonts.
+Plain HTML, CSS and JavaScript. There is no framework and no build step. Fonts (Syne, DM Sans, DM Mono, and Noto Sans for Hindi and Bengali) load from Google Fonts.
 
 ## Project structure
 
 ```
 index.html            main page
 track.html            tracking page
+favicon/              site icons (favicon.svg, favicon.ico, apple-touch-icon.png)
 css/
-  base.css            colours, theme variables, shared styles
-  nav.css             header and theme toggle
+  base.css            colours, theme variables, shared styles, Hindi and Bengali text rules
+  nav.css             header, language menu and theme toggle
   hero.css            hero section
   landing.css         main page sections
   tracker.css         tracking card and courier buttons
@@ -75,6 +83,7 @@ css/
   features.css        feature cards and footer
 js/
   couriers.js         courier list, tracking links and colours
+  i18n.js             translations (English, Hindi, Bengali) and the language menu
   tracker.js          tracking page logic
   recent.js           recent and pinned shipments
   qr.js               barcode and QR scanner
@@ -104,10 +113,8 @@ OneParcel is a static site, so any static host works. It is hosted on Vercel and
 ```js
 mycourier: {
   name: 'My Courier',
-  sub: 'Enter your My Courier AWB number below and get redirected to live shipment status.',
+  i18n: { label: 'labelAwb', sub: 'subAwb', btn: 'btnTrack' },
   placeholder: 'e.g. 1234567890',
-  label: 'Airway Bill (AWB) number',
-  btnLabel: 'Track My Courier shipment',
   url: (v) => `https://example.com/track/${encodeURIComponent(v)}`,
   hex: '#0066CC', hexDark: '#0052a3',
   glow: 'rgba(0,102,204,0.10)', tagBg: 'rgba(0,102,204,0.08)',
@@ -118,6 +125,16 @@ mycourier: {
 },
 ```
 
+The `i18n` line picks which wording the page uses. The text itself lives in `js/i18n.js`, so it is translated automatically:
+
+| Part | Options |
+| --- | --- |
+| `label` (name of the number) | `labelAwb`, `labelTracking`, `labelShipment` |
+| `sub` (sentence under the headline) | `subAwb`, `subTracking`, `subShipment` |
+| `btn` (track button) | `btnTrack` ("Track {name} shipment"), `btnTrackName` ("Track {name}") |
+
+Older entries also have `sub`, `label` and `btnLabel` fields. The page no longer reads them.
+
 2. Add a button for it in `track.html`, next to the other courier buttons:
 
 ```html
@@ -126,7 +143,15 @@ mycourier: {
 </button>
 ```
 
+3. Optional: add a link to the courier's website in the footer of `index.html` and `track.html`.
+
 The courier list on the main page builds itself from `couriers.js`, so it needs no change.
+
+## Add a language
+
+1. In `js/i18n.js`, add the language to the `LANGS` list, for example `{ code: 'ta', label: 'தமிழ்' }`.
+2. Copy the whole `en` block inside `I18N`, rename it to the new code, and translate each value. Keep the `{name}` and `{x}` markers and the `<span>` and `<strong>` tags as they are.
+3. If the language uses a script that the page fonts don't cover, add a matching Noto Sans font to the Google Fonts link in `index.html` and `track.html` and to the font variables in `css/base.css`. If its letters join together like Hindi and Bengali, add its code to the `html:lang(...)` rules at the bottom of `css/base.css`.
 
 ## Limitations
 
