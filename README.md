@@ -4,7 +4,7 @@ Track parcels from many couriers on one page. Available in English, Hindi and Be
 
 OneParcel is a small web tool for people who order online and track shipments often. You choose the courier, type or paste the tracking number, and it opens that courier's own tracking page in a new tab. It does not fetch or show tracking status itself. It saves you from finding the right courier site and the right input box each time.
 
-**Live site:** [oneprcel.vercel.app](https://oneprcel.vercel.app)
+**Live site:** [oneparcel.vercel.app](https://oneparcel.vercel.app)
 
 | Courier | Number it asks for | Opens |
 | --- | --- | --- |
