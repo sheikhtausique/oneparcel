@@ -88,3 +88,21 @@
   window.addEventListener('resize', fit);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
 })();
+
+// Features heading: keep each sentence on one line, whatever font the device uses
+(function fitFeaturesTitle() {
+  const h2 = document.querySelector('.features-title');
+  if (!h2) return;
+  const lines = [...h2.querySelectorAll('.h2-line')];
+
+  function fit() {
+    h2.style.fontSize = '';
+    const avail = h2.clientWidth;
+    const widest = Math.max(...lines.map(l => l.getBoundingClientRect().width));
+    if (widest > avail) h2.style.fontSize = (parseFloat(getComputedStyle(h2).fontSize) * avail / widest * 0.98) + 'px';
+  }
+
+  fit();
+  window.addEventListener('resize', fit);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+})();
