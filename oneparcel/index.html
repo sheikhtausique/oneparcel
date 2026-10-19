@@ -3,7 +3,10 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
-<title>OneParcel — Track every courier in one place</title>
+<title>OneParcel by CuriosityLabs</title>
+<link rel="icon" href="favicon/favicon.ico" sizes="32x32"/>
+<link rel="icon" href="favicon/favicon.svg" type="image/svg+xml"/>
+<link rel="apple-touch-icon" href="favicon/apple-touch-icon.png"/>
 <meta name="theme-color" content="#0a0a0b"/>
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -11,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="OneParcel"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&family=Noto+Sans+Devanagari:wght@400;500;700;800&family=Noto+Sans+Bengali:wght@400;500;700;800&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="css/base.css"/>
 <link rel="stylesheet" href="css/nav.css"/>
 <link rel="stylesheet" href="css/hero.css"/>
@@ -43,11 +46,14 @@
   </a>
   <div class="nav-right">
     <div class="nav-links">
-      <a class="nav-link" href="#couriers">Couriers</a>
-      <a class="nav-link" href="#how">How it works</a>
+      <a class="nav-link" href="#couriers" data-i18n="navCouriers">Couriers</a>
+      <a class="nav-link" href="#how" data-i18n="navHow">How it works</a>
     </div>
-    <a class="nav-cta" href="track.html">Track a parcel</a>
-    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle light/dark mode">
+    <a class="nav-cta" href="track.html" data-i18n="navTrack">Track a parcel</a>
+    <button class="lang-btn" id="langBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Language" title="Language" data-i18n-title="langTitle">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.2"/><path d="M1.8 8h12.4M8 1.8c1.8 1.9 2.7 3.9 2.7 6.2S9.8 12.3 8 14.2C6.2 12.3 5.3 10.3 5.3 8S6.2 3.7 8 1.8z"/></svg>
+    </button>
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle light/dark mode" data-i18n-title="themeTitle">
       <span class="theme-toggle-track">
         <span class="theme-toggle-thumb"></span>
         <span class="theme-icon theme-icon-moon">
@@ -76,53 +82,53 @@
 
   <div class="hero-tag">
     <div class="hero-tag-dot"></div>
-    <span>Live shipment tracking</span>
+    <span data-i18n="liveTag">Live shipment tracking</span>
   </div>
 
-  <h1>Track your<br/><span class="accent" id="heroAccent">courier</span><br/>Shipment</h1>
+  <h1><span data-i18n="h1a">Track your</span><br/><span class="accent" id="heroAccent">courier</span><br/><span data-i18n="h1c">Shipment</span></h1>
 
-  <p class="hero-sub">One page for every courier. Enter your AWB and OneParcel opens the official tracking page for you.</p>
+  <p class="hero-sub" data-i18n="landSub">One page for every courier. Enter your AWB and OneParcel opens the official tracking page for you.</p>
 
   <div class="hero-actions">
-    <a class="btn btn-primary" href="track.html">Start tracking</a>
-    <a class="btn btn-ghost" href="#couriers">See couriers</a>
+    <a class="btn btn-primary" href="track.html" data-i18n="btnStart">Start tracking</a>
+    <a class="btn btn-ghost" href="#couriers" data-i18n="btnSee">See couriers</a>
   </div>
 </section>
 
 <!-- COURIERS -->
 <section class="land-section" id="couriers">
-  <h2>Pick your courier</h2>
-  <p class="land-lead">Choose one and your tracking page opens with it already selected.</p>
+  <h2 data-i18n="pickTitle">Pick your courier</h2>
+  <p class="land-lead" data-i18n="pickLead">Choose one and your tracking page opens with it already selected.</p>
   <div class="ledger" id="ledger"></div>
 </section>
 
 <!-- HOW IT WORKS -->
 <section class="land-section" id="how">
-  <h2>Three steps to your parcel</h2>
-  <p class="land-lead">No account, no sign-up.</p>
+  <h2 data-i18n="howTitle">Three steps to your parcel</h2>
+  <p class="land-lead" data-i18n="howLead">No account, no sign-up.</p>
   <div class="how">
     <div class="how-step">
       <div class="how-num">01</div>
-      <div class="how-title">Select your courier</div>
-      <div class="how-desc">Pick from the supported couriers. Nothing is pre-selected, so you always choose.</div>
+      <div class="how-title" data-i18n="how1t">Select your courier</div>
+      <div class="how-desc" data-i18n="how1d">Pick from the supported couriers. Nothing is pre-selected, so you always choose.</div>
     </div>
     <div class="how-step">
       <div class="how-num">02</div>
-      <div class="how-title">Enter the number</div>
-      <div class="how-desc">Type it, paste it, or scan the barcode on the package with your camera.</div>
+      <div class="how-title" data-i18n="how2t">Enter the number</div>
+      <div class="how-desc" data-i18n="how2d">Type it, paste it, or scan the barcode on the package with your camera.</div>
     </div>
     <div class="how-step">
       <div class="how-num">03</div>
-      <div class="how-title">See live status</div>
-      <div class="how-desc">The courier's own tracking page opens in a new tab with your shipment loaded.</div>
+      <div class="how-title" data-i18n="how3t">See live status</div>
+      <div class="how-desc" data-i18n="how3d">The courier's own tracking page opens in a new tab with your shipment loaded.</div>
     </div>
   </div>
 </section>
 
 <!-- FEATURES -->
 <section class="features">
-  <div class="section-label">Why use this</div>
-  <h2 class="features-title"><span class="h2-line">Everything you need.</span><span class="h2-line">Nothing you don't.</span></h2>
+  <div class="section-label" data-i18n="whyLabel">Why use this</div>
+  <h2 class="features-title"><span class="h2-line" data-i18n="featL1">Everything you need.</span><span class="h2-line" data-i18n="featL2">Nothing you don't.</span></h2>
   <div class="features-grid">
     <div class="feat-card">
       <div class="feat-icon">
@@ -130,8 +136,8 @@
           <circle cx="9" cy="9" r="7"/><path d="M9 5v4l2.5 2.5"/>
         </svg>
       </div>
-      <div class="feat-title">Instant redirect</div>
-      <div class="feat-desc">Takes you directly to the official courier tracking page. No middlemen, no delays, no ads.</div>
+      <div class="feat-title" data-i18n="feat1t">Instant redirect</div>
+      <div class="feat-desc" data-i18n="feat1d">Takes you directly to the official courier tracking page. No middlemen, no delays, no ads.</div>
     </div>
     <div class="feat-card">
       <div class="feat-icon">
@@ -139,8 +145,8 @@
           <rect x="3" y="3" width="12" height="12" rx="2"/><path d="M7 9l2 2 4-4"/>
         </svg>
       </div>
-      <div class="feat-title">Official data</div>
-      <div class="feat-desc">Pulls tracking information directly from each courier's own system. Always accurate, always up-to-date.</div>
+      <div class="feat-title" data-i18n="feat2t">Official data</div>
+      <div class="feat-desc" data-i18n="feat2d">Pulls tracking information directly from each courier's own system. Always accurate, always up-to-date.</div>
     </div>
     <div class="feat-card">
       <div class="feat-icon">
@@ -148,26 +154,26 @@
           <path d="M4 9h10M9 4l5 5-5 5"/>
         </svg>
       </div>
-      <div class="feat-title">One-click tracking</div>
-      <div class="feat-desc">Paste your AWB, hit enter. That's it. Opens in a new tab so you never lose your place.</div>
+      <div class="feat-title" data-i18n="feat3t">One-click tracking</div>
+      <div class="feat-desc" data-i18n="feat3d">Paste your AWB, hit enter. That's it. Opens in a new tab so you never lose your place.</div>
     </div>
   </div>
 </section>
 
 <!-- CLOSING CTA -->
 <section class="land-cta">
-  <h2>Got a tracking number?</h2>
-  <a class="btn btn-primary" href="track.html">Start tracking</a>
+  <h2 data-i18n="ctaTitle">Got a tracking number?</h2>
+  <a class="btn btn-primary" href="track.html" data-i18n="btnStart">Start tracking</a>
 </section>
 
 <!-- PWA INSTALL BANNER -->
 <div class="pwa-banner" id="pwaBanner">
   <div class="pwa-banner-text">
-    <div class="pwa-banner-title">Install OneParcel</div>
-    <div class="pwa-banner-sub">Add to home screen for quick access</div>
+    <div class="pwa-banner-title" data-i18n="pwaTitle">Install OneParcel</div>
+    <div class="pwa-banner-sub" data-i18n="pwaSub">Add to home screen for quick access</div>
   </div>
   <div class="pwa-banner-btns">
-    <button class="pwa-install-btn" onclick="installPWA()">Install</button>
+    <button class="pwa-install-btn" onclick="installPWA()" data-i18n="pwaInstall">Install</button>
     <button class="pwa-dismiss-btn" onclick="dismissPWA()">
       <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
         <line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/>
@@ -186,9 +192,7 @@
     </div>
     <span style="font-family:var(--display);font-size:15px;font-weight:700;color:var(--text);">OneParcel</span>
   </div>
-  <div class="footer-credits">
-    Created by <span>Tausique</span> &nbsp;·&nbsp; Powered by <span>CuriosityLabs</span>
-  </div>
+  <div class="footer-credits" data-i18n-html="footCredits">Created by <span>Tausique</span> &nbsp;·&nbsp; Powered by <span>CuriosityLabs</span></div>
   <div class="footer-links">
     <a href="https://www.bluedart.com" target="_blank">BlueDart</a>
     <a href="https://www.delhivery.com" target="_blank">Delhivery</a>
@@ -201,15 +205,14 @@
     <a href="https://www.ups.com" target="_blank">UPS</a>
     <a href="https://track.amazon.in" target="_blank">Amazon Shipping</a>
   </div>
-  <div style="font-family:var(--mono);font-size:11px;color:var(--text3);margin-top:0.25rem;">
-    This tool redirects to official courier websites. Not affiliated with any courier.
-  </div>
+  <div style="font-family:var(--mono);font-size:11px;color:var(--text3);margin-top:0.25rem;" data-i18n="footDisclaimer">This tool redirects to official courier websites. Not affiliated with any courier.</div>
   <a class="footer-github" href="https://github.com/sheikhtausique/oneparcel" target="_blank" rel="noopener">
     <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-    <span>View on GitHub</span>
+    <span data-i18n="githubLink">View on GitHub</span>
   </a>
 </footer>
 
+<script src="js/i18n.js"></script>
 <script src="js/couriers.js"></script>
 <script src="js/theme.js"></script>
 <script src="js/pwa.js"></script>

@@ -1,6 +1,7 @@
 const couriers = {
   bluedart: {
     name: 'BlueDart',
+    i18n: { label: 'labelAwb', sub: 'subAwb', btn: 'btnTrack' },
     sub: 'Enter your BlueDart AWB number below and get redirected to live shipment status on the official BlueDart website.',
     placeholder: 'e.g. 1234567890',
     label: 'Airway Bill (AWB) number',
@@ -15,6 +16,7 @@ const couriers = {
   },
   delhivery: {
     name: 'Delhivery',
+    i18n: { label: 'labelAwb', sub: 'subAwb', btn: 'btnTrack' },
     sub: 'Enter your Delhivery AWB number below and get redirected to live shipment status on the official Delhivery website.',
     placeholder: 'e.g. 1234567890',
     label: 'Airway Bill (AWB) number',
@@ -29,6 +31,7 @@ const couriers = {
   },
   ekart: {
     name: 'Ekart',
+    i18n: { label: 'labelAwb', sub: 'subAwb', btn: 'btnTrack' },
     sub: 'Enter your Ekart AWB number below and get redirected to live shipment status on the official Ekart website.',
     placeholder: 'e.g. 1234567890',
     label: 'Airway Bill (AWB) number',
@@ -43,6 +46,7 @@ const couriers = {
   },
   dhl: {
     name: 'DHL',
+    i18n: { label: 'labelAwb', sub: 'subTracking', btn: 'btnTrack' },
     sub: 'Enter your DHL tracking number below and get redirected to live shipment status on the official DHL website.',
     placeholder: 'e.g. 1234567890',
     label: 'Airway Bill (AWB) number',
@@ -57,6 +61,7 @@ const couriers = {
   },
   xpressbees: {
     name: 'Xpressbees',
+    i18n: { label: 'labelAwb', sub: 'subAwb', btn: 'btnTrack' },
     sub: 'Enter your Xpressbees AWB number below and get redirected to live shipment status on the official Xpressbees website.',
     placeholder: 'e.g. 1234567890',
     label: 'Airway Bill (AWB) number',
@@ -71,6 +76,7 @@ const couriers = {
   },
   valmo: {
     name: 'Valmo',
+    i18n: { label: 'labelAwb', sub: 'subAwb', btn: 'btnTrack' },
     sub: 'Enter your Valmo AWB number below and get redirected to live shipment status on the official Valmo website.',
     placeholder: 'e.g. VL1234567890',
     label: 'Airway Bill (AWB) number',
@@ -85,6 +91,7 @@ const couriers = {
   },
   fedex: {
     name: 'FedEx',
+    i18n: { label: 'labelTracking', sub: 'subTracking', btn: 'btnTrack' },
     sub: 'Enter your FedEx tracking number below and get redirected to live shipment status on the official FedEx website.',
     placeholder: 'e.g. 1234567890',
     label: 'Tracking number',
@@ -99,6 +106,7 @@ const couriers = {
   },
   aramex: {
     name: 'Aramex',
+    i18n: { label: 'labelShipment', sub: 'subShipment', btn: 'btnTrack' },
     sub: 'Enter your Aramex shipment number below and get redirected to live shipment status on the official Aramex website.',
     placeholder: 'e.g. 1234567890',
     label: 'Shipment number',
@@ -113,6 +121,7 @@ const couriers = {
   },
   ups: {
     name: 'UPS',
+    i18n: { label: 'labelTracking', sub: 'subTracking', btn: 'btnTrack' },
     sub: 'Enter your UPS tracking number below and get redirected to live shipment status on the official UPS website.',
     placeholder: 'e.g. 1234567890',
     label: 'Tracking number',
@@ -127,6 +136,7 @@ const couriers = {
   },
   amazon: {
     name: 'Amazon Shipping',
+    i18n: { label: 'labelTracking', sub: 'subTracking', btn: 'btnTrackName' },
     sub: 'Enter your Amazon Shipping tracking number below and get redirected to live shipment status on the official Amazon tracking page.',
     placeholder: 'e.g. 1234567890',
     label: 'Tracking number',

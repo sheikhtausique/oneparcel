@@ -10,7 +10,7 @@ async function openQRScanner() {
     startQRDetection(video);
   } catch {
     closeQRScanner();
-    document.getElementById('err').textContent = 'Camera access denied. Please allow camera permission.';
+    document.getElementById('err').textContent = t('qrDenied');
   }
 }
 

@@ -205,6 +205,8 @@ a, button { -webkit-tap-highlight-color: transparent; touch-action: manipulation
   .nav-link { display: inline-flex; align-items: center; min-height: 40px; padding: 0 4px; font-size: 11px; white-space: nowrap; }
   .nav-cta { display: inline-flex; align-items: center; min-height: 36px; padding: 0 10px; margin-left: 4px; font-size: 11px; white-space: nowrap; }
   .theme-toggle { padding: 7px 0; margin-left: 4px; flex-shrink: 0; zoom: 0.75; }
+  .lang-btn { width: 26px; height: 26px; margin-left: 2px; }
+  .lang-btn svg { width: 13px; height: 13px; }
 
   .hero.landing {
     min-height: auto;

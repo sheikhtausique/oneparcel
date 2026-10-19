@@ -29,9 +29,9 @@
   --text: #f0ede8;
   --text2: #8a8a94;
   --text3: #55555e;
-  --mono: 'DM Mono', monospace;
-  --sans: 'DM Sans', sans-serif;
-  --display: 'Syne', sans-serif;
+  --mono: 'DM Mono', 'Noto Sans Devanagari', 'Noto Sans Bengali', monospace;
+  --sans: 'DM Sans', 'Noto Sans Devanagari', 'Noto Sans Bengali', sans-serif;
+  --display: 'Syne', 'Noto Sans Devanagari', 'Noto Sans Bengali', sans-serif;
 }
 
 :root.light {
@@ -128,3 +128,15 @@ body::before {
 .home-btn:active { transform: scale(0.92); }
 
 .home-btn svg { stroke: var(--text2); transition: stroke 0.2s; }
+
+/* HINDI AND BENGALI: letters join into shapes, so no tight spacing, and taller lines for the marks above and below */
+html:lang(hi) *:not(input):not(textarea),
+html:lang(bn) *:not(input):not(textarea) { letter-spacing: normal !important; }
+
+html:lang(hi) h1, html:lang(bn) h1,
+html:lang(hi) h2, html:lang(bn) h2,
+html:lang(hi) h3, html:lang(bn) h3 { line-height: 1.3; }
+
+html:lang(hi) p, html:lang(bn) p,
+html:lang(hi) .feat-desc, html:lang(bn) .feat-desc,
+html:lang(hi) .how-desc, html:lang(bn) .how-desc { line-height: 1.75; }

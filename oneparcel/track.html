@@ -3,13 +3,16 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Track a shipment — OneParcel</title>
+<title>OneParcel by CuriosityLabs</title>
+<link rel="icon" href="favicon/favicon.ico" sizes="32x32"/>
+<link rel="icon" href="favicon/favicon.svg" type="image/svg+xml"/>
+<link rel="apple-touch-icon" href="favicon/apple-touch-icon.png"/>
 <meta name="theme-color" content="#0a0a0b"/>
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="OneParcel"/>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&family=Noto+Sans+Devanagari:wght@400;500;700;800&family=Noto+Sans+Bengali:wght@400;500;700;800&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="css/base.css"/>
 <link rel="stylesheet" href="css/nav.css"/>
 <link rel="stylesheet" href="css/hero.css"/>
@@ -41,9 +44,12 @@
     <span class="nav-logo-text">OneParcel</span>
   </a>
   <div class="nav-right">
-    <a class="nav-link" href="index.html">Home</a>
+    <a class="nav-link" href="index.html" data-i18n="navHome">Home</a>
     <div class="nav-badge">by CuriosityLabs</div>
-    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle light/dark mode">
+    <button class="lang-btn" id="langBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Language" title="Language" data-i18n-title="langTitle">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.2"/><path d="M1.8 8h12.4M8 1.8c1.8 1.9 2.7 3.9 2.7 6.2S9.8 12.3 8 14.2C6.2 12.3 5.3 10.3 5.3 8S6.2 3.7 8 1.8z"/></svg>
+    </button>
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle light/dark mode" data-i18n-title="themeTitle">
       <span class="theme-toggle-track">
         <span class="theme-toggle-thumb"></span>
         <span class="theme-icon theme-icon-moon">
@@ -75,7 +81,7 @@
     <span id="tagText">Live shipment tracking</span>
   </div>
 
-  <h1>Track your<br/><span class="accent" id="heroAccent">your</span><br/>Shipment</h1>
+  <h1><span data-i18n="h1a">Track your</span><br/><span class="accent" id="heroAccent">courier</span><br/><span data-i18n="h1c">Shipment</span></h1>
 
   <p class="hero-sub" id="heroSub">Choose your courier below to get started.</p>
 
@@ -126,20 +132,20 @@
         <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
           <line x1="1" y1="3" x2="10" y2="3"/><line x1="1" y1="6" x2="10" y2="6"/><line x1="1" y1="9" x2="7" y2="9"/>
         </svg>
-        Bulk
+        <span data-i18n="bulkBtn">Bulk</span>
       </button>
     </div>
 
     <div class="bulk-section" id="bulkSection">
-      <textarea class="bulk-textarea" id="bulkInput" placeholder="Paste multiple AWB numbers, one per line&#10;e.g.&#10;1234567890&#10;0987654321"></textarea>
-      <button class="bulk-track-btn" onclick="trackBulk()">Open all in new tabs</button>
+      <textarea class="bulk-textarea" id="bulkInput" placeholder="Paste multiple AWB numbers, one per line&#10;e.g.&#10;1234567890&#10;0987654321" data-i18n-placeholder="bulkPlaceholder"></textarea>
+      <button class="bulk-track-btn" onclick="trackBulk()" data-i18n="bulkOpen">Open all in new tabs</button>
     </div>
 
     <div id="singleInputWrap">
       <div class="input-wrap">
         <input id="awb" type="text" placeholder="e.g. 1234567890" autocomplete="off" inputmode="numeric"/>
         <div class="input-actions">
-          <div class="input-icon-btn" id="qrBtn" onclick="openQRScanner()" title="Scan QR / barcode">
+          <div class="input-icon-btn" id="qrBtn" onclick="openQRScanner()" title="Scan QR / barcode" data-i18n-title="scanTitle">
             <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="var(--icon-stroke)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
               <rect x="1" y="1" width="4" height="4" rx="0.8"/>
               <rect x="8" y="1" width="4" height="4" rx="0.8"/>
@@ -149,7 +155,7 @@
               <line x1="10.5" y1="8.5" x2="10.5" y2="12"/>
             </svg>
           </div>
-          <div class="input-icon-btn" id="pasteBtn" onclick="pasteFromClipboard()" title="Paste from clipboard">
+          <div class="input-icon-btn" id="pasteBtn" onclick="pasteFromClipboard()" title="Paste from clipboard" data-i18n-title="pasteTitle">
             <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="var(--icon-stroke)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
               <rect x="4" y="3" width="7" height="9" rx="1.5"/>
               <path d="M4 4.5H3a1 1 0 01-1-1V2a1 1 0 011-1h4a1 1 0 011 1v1"/>
@@ -166,8 +172,8 @@
 
     <div class="recent-section" id="recentSection" style="display:none;">
       <div class="recent-label">
-        Recently tracked
-        <button class="recent-clear-all" onclick="clearAllRecent()">Clear all</button>
+        <span data-i18n="recentLabel">Recently tracked</span>
+        <button class="recent-clear-all" onclick="clearAllRecent()" data-i18n="clearAll">Clear all</button>
       </div>
       <div class="recent-list" id="recentList"></div>
     </div>
@@ -183,7 +189,7 @@
 
     <div class="kbd-hint">
       <span class="kbd">↵ Enter</span>
-      <span>to track</span>
+      <span data-i18n="kbdHint">to track</span>
     </div>
 
     <div class="share-row">
@@ -192,9 +198,9 @@
           <circle cx="9.5" cy="2" r="1.5"/><circle cx="9.5" cy="10" r="1.5"/><circle cx="2" cy="6" r="1.5"/>
           <line x1="3.5" y1="6.8" x2="8" y2="9.2"/><line x1="8" y1="2.8" x2="3.5" y2="5.2"/>
         </svg>
-        Share tracking link
+        <span data-i18n="shareBtn">Share tracking link</span>
       </button>
-      <span class="share-copied" id="shareCopied">✓ Link copied!</span>
+      <span class="share-copied" id="shareCopied" data-i18n="shareCopied">✓ Link copied!</span>
     </div>
 
     <div id="captchaWarning" style="display:none;margin-top:0.75rem;background:rgba(249,115,22,0.07);border:1px solid rgba(249,115,22,0.25);border-radius:10px;padding:10px 14px;align-items:center;gap:9px;">
@@ -203,15 +209,15 @@
         <line x1="7.5" y1="5.5" x2="7.5" y2="8.5"/>
         <circle cx="7.5" cy="10.5" r="0.5" fill="#F97316"/>
       </svg>
-      <span style="font-family:var(--mono);font-size:11px;color:#fba572;line-height:1.5;">Xpressbees requires a <strong>captcha verification</strong> on their website before showing tracking results.</span>
+      <span style="font-family:var(--mono);font-size:11px;color:#fba572;line-height:1.5;" data-i18n-html="captchaNote">Xpressbees requires a <strong>captcha verification</strong> on their website before showing tracking results.</span>
     </div>
 
     <hr class="card-divider"/>
 
     <div class="steps">
-      <div class="step"><div class="step-num" id="s1">01</div><div class="step-name">Select courier</div></div>
-      <div class="step"><div class="step-num" id="s2">02</div><div class="step-name">Enter number</div></div>
-      <div class="step"><div class="step-num" id="s3">03</div><div class="step-name">Live status</div></div>
+      <div class="step"><div class="step-num" id="s1">01</div><div class="step-name" data-i18n="step1">Select courier</div></div>
+      <div class="step"><div class="step-num" id="s2">02</div><div class="step-name" data-i18n="step2">Enter number</div></div>
+      <div class="step"><div class="step-num" id="s3">03</div><div class="step-name" data-i18n="step3">Live status</div></div>
     </div>
   </div>
 </section>
@@ -220,7 +226,7 @@
 <div class="qr-modal-overlay" id="qrModalOverlay">
   <div class="qr-modal">
     <div class="qr-modal-header">
-      <span class="qr-modal-title">Scan AWB barcode</span>
+      <span class="qr-modal-title" data-i18n="qrTitle">Scan AWB barcode</span>
       <button class="qr-close" onclick="closeQRScanner()">
         <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
           <line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/>
@@ -231,18 +237,18 @@
       <video id="qrVideo" autoplay playsinline muted></video>
       <div class="qr-overlay-frame"><div class="qr-frame"></div></div>
     </div>
-    <p class="qr-hint">Point your camera at the AWB barcode or QR code on the package</p>
+    <p class="qr-hint" data-i18n="qrHint">Point your camera at the AWB barcode or QR code on the package</p>
   </div>
 </div>
 
 <!-- PWA INSTALL BANNER -->
 <div class="pwa-banner" id="pwaBanner">
   <div class="pwa-banner-text">
-    <div class="pwa-banner-title">Install OneParcel</div>
-    <div class="pwa-banner-sub">Add to home screen for quick access</div>
+    <div class="pwa-banner-title" data-i18n="pwaTitle">Install OneParcel</div>
+    <div class="pwa-banner-sub" data-i18n="pwaSub">Add to home screen for quick access</div>
   </div>
   <div class="pwa-banner-btns">
-    <button class="pwa-install-btn" onclick="installPWA()">Install</button>
+    <button class="pwa-install-btn" onclick="installPWA()" data-i18n="pwaInstall">Install</button>
     <button class="pwa-dismiss-btn" onclick="dismissPWA()">
       <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
         <line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/>
@@ -254,12 +260,12 @@
 <!-- LABEL MODAL -->
 <div class="label-modal-overlay" id="labelModalOverlay">
   <div class="label-modal">
-    <h3>Label this shipment</h3>
+    <h3 data-i18n="labelModalTitle">Label this shipment</h3>
     <p id="labelModalMeta">BlueDart · 1234567890</p>
-    <input type="text" id="labelInput" placeholder="e.g. Shoes from Myntra" maxlength="40"/>
+    <input type="text" id="labelInput" placeholder="e.g. Shoes from Myntra" data-i18n-placeholder="labelPlaceholder" maxlength="40"/>
     <div class="label-modal-btns">
-      <button onclick="closeLabelModal()">Cancel</button>
-      <button onclick="saveLabelModal()">Save label</button>
+      <button onclick="closeLabelModal()" data-i18n="cancel">Cancel</button>
+      <button onclick="saveLabelModal()" data-i18n="saveLabel">Save label</button>
     </div>
   </div>
 </div>
@@ -274,9 +280,7 @@
     </div>
     <span style="font-family:var(--display);font-size:15px;font-weight:700;color:var(--text);">OneParcel</span>
   </div>
-  <div class="footer-credits">
-    Created by <span>Tausique</span> &nbsp;·&nbsp; Powered by <span>CuriosityLabs</span>
-  </div>
+  <div class="footer-credits" data-i18n-html="footCredits">Created by <span>Tausique</span> &nbsp;·&nbsp; Powered by <span>CuriosityLabs</span></div>
   <div class="footer-links">
     <a href="https://www.bluedart.com" target="_blank">BlueDart</a>
     <a href="https://www.delhivery.com" target="_blank">Delhivery</a>
@@ -289,18 +293,17 @@
     <a href="https://www.ups.com" target="_blank">UPS</a>
     <a href="https://track.amazon.in" target="_blank">Amazon Shipping</a>
   </div>
-  <div style="font-family:var(--mono);font-size:11px;color:var(--text3);margin-top:0.25rem;">
-    This tool redirects to official courier websites. Not affiliated with any courier.
-  </div>
+  <div style="font-family:var(--mono);font-size:11px;color:var(--text3);margin-top:0.25rem;" data-i18n="footDisclaimer">This tool redirects to official courier websites. Not affiliated with any courier.</div>
 </footer>
 
 <!-- FLOATING HOME BUTTON -->
-<button class="home-btn" id="homeBtn" onclick="scrollToTop()" title="Back to top">
+<button class="home-btn" id="homeBtn" onclick="scrollToTop()" title="Back to top" data-i18n-title="homeTip">
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
     <polyline points="3,10 8,5 13,10"/>
   </svg>
 </button>
 
+<script src="js/i18n.js"></script>
 <script src="js/couriers.js"></script>
 <script src="js/recent.js"></script>
 <script src="js/tracker.js"></script>

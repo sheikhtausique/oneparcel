@@ -83,3 +83,6 @@ h1 .accent { color: var(--accent-color, var(--blue)); transition: color 0.4s; }
 @media (max-width: 600px) {
   h1 { font-size: 2.6rem; }
 }
+
+/* each headline line stays on one line; the page scales the text if it is too wide */
+.hero h1 > span { white-space: nowrap; }

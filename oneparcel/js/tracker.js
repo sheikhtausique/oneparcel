@@ -1,4 +1,5 @@
 let activeCourier = 'bluedart';
+let hasCourier = false;   // false until the visitor picks a courier
 
 const input    = document.getElementById('awb');
 const err      = document.getElementById('err');
@@ -40,6 +41,7 @@ function clearInput() {
 // ── SELECT COURIER ──
 function selectCourier(c, preserveInput = false) {
   activeCourier = c;
+  hasCourier = true;
   const cfg = couriers[c];
   const root = document.documentElement;
 
@@ -56,13 +58,13 @@ function selectCourier(c, preserveInput = false) {
 
   document.getElementById('tagText').textContent   = cfg.name;
   document.getElementById('heroAccent').textContent = cfg.name;
-  document.getElementById('heroSub').textContent   = cfg.sub;
+  document.getElementById('heroSub').textContent   = t(cfg.i18n.sub, { name: cfg.name });
   document.getElementById('chipLabel').textContent  = cfg.name;
-  document.getElementById('inputLabel').textContent = cfg.label;
-  document.getElementById('btnLabel').textContent   = cfg.btnLabel;
+  document.getElementById('inputLabel').textContent = t(cfg.i18n.label);
+  document.getElementById('btnLabel').textContent   = t(cfg.i18n.btn, { name: cfg.name });
 
   const inp = document.getElementById('awb');
-  inp.placeholder = cfg.placeholder;
+  inp.placeholder = t('eg', { x: cfg.placeholder.replace(/^e\.g\.\s*/, '') });
   if (!preserveInput) {
     inp.value = '';
     clearBtn.style.display = 'none';
@@ -78,6 +80,7 @@ function selectCourier(c, preserveInput = false) {
   document.getElementById('captchaWarning').style.display = c === 'xpressbees' ? 'flex' : 'none';
 
   err.textContent = '';
+  fitHero();
 }
 
 function selectCourierAnimated(c, preserveInput = false) {
@@ -116,7 +119,7 @@ function trackBulk() {
 // ── SHARE ──
 function shareTracking() {
   const val = input.value.trim();
-  if (!val) { err.textContent = 'Enter a tracking number first.'; return; }
+  if (!val) { err.textContent = t('errShare'); return; }
   const url = couriers[activeCourier].url(val);
   try {
     navigator.clipboard.writeText(url);
@@ -130,7 +133,7 @@ function shareTracking() {
 function track() {
   const val = input.value.trim();
   if (!val) {
-    err.textContent = 'Please enter a tracking number to continue.';
+    err.textContent = t('errEmpty');
     input.focus();
     return;
   }
@@ -159,11 +162,21 @@ function initEmpty() {
   root.style.setProperty('--input-focus-shadow', '0 0 0 3px rgba(100,100,120,0.08)');
   root.style.setProperty('--card-border-color',  'rgba(100,100,120,0.2)');
 
+  hasCourier = false;
   document.getElementById('trackerCard').classList.add('idle');
-  document.getElementById('heroAccent').textContent = 'courier';
-  document.getElementById('tagText').textContent = 'Select a courier to begin';
-  document.getElementById('heroSub').textContent = 'Choose your courier below to get started.';
-  document.getElementById('chipLabel').textContent = 'No courier selected';
-  document.getElementById('btnLabel').textContent = 'Select a courier first';
+  document.getElementById('heroAccent').textContent = t('courierWord');
+  document.getElementById('tagText').textContent = t('tagBegin');
+  document.getElementById('heroSub').textContent = t('subEmpty');
+  document.getElementById('chipLabel').textContent = t('chipNone');
+  document.getElementById('inputLabel').textContent = t('labelAwb');
+  document.getElementById('awb').placeholder = t('eg', { x: '1234567890' });
+  document.getElementById('btnLabel').textContent = t('btnNone');
+  fitHero();
   document.querySelectorAll('.courier-btn').forEach(b => b.classList.remove('active-courier'));
 }
+
+// Switching language: redo the texts that are set from code
+onLangChange(() => {
+  if (hasCourier) selectCourier(activeCourier, true);
+  else initEmpty();
+});

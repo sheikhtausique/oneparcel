@@ -43,7 +43,11 @@
   window.addEventListener('resize', fit);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
 
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    word.textContent = t('courierWord');
+    onLangChange(() => { word.textContent = t('courierWord'); fit(); });
+    return;
+  }
   apply(couriers[keys[0]]);
   setInterval(() => {
     if (document.hidden) return;

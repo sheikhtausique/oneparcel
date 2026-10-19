@@ -161,24 +161,24 @@ function renderRecent() {
       <div class="recent-text">
         <span class="recent-courier">
           ${label ? `<em style="color:var(--text2);font-style:normal;">${esc(label)}</em>` : esc(r.name)}
-          ${r._pinned ? '<span class="pinned-badge">pinned</span>' : ''}
+          ${r._pinned ? `<span class="pinned-badge">${esc(t('pinned'))}</span>` : ''}
         </span>
         <span class="recent-awb" style="color:var(--text);">${esc(r.awb)}</span>
       </div>
       <div style="display:flex;gap:3px;flex-shrink:0;">
         <button class="recent-delete ${r._pinned ? 'pin-active' : ''}"
           onclick="event.stopPropagation();togglePin(${c},${a},${arg(r.hex)},${arg(r.name)})"
-          title="${r._pinned ? 'Unpin' : 'Pin to top'}">
+          title="${esc(r._pinned ? t('unpinTip') : t('pinTip'))}">
           <svg width="11" height="11" viewBox="0 0 14 14" fill="${r._pinned ? pinCol : 'none'}" stroke="${pinCol}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M9 2L9 7L11 9H3L5 7V2"/><line x1="7" y1="9" x2="7" y2="13"/><line x1="4" y1="2" x2="10" y2="2"/>
           </svg>
         </button>
-        <button class="recent-delete" onclick="event.stopPropagation();openLabelModal(${c},${a})" title="Rename">
+        <button class="recent-delete" onclick="event.stopPropagation();openLabelModal(${c},${a})" title="${esc(t('renameTip'))}">
           <svg width="11" height="11" viewBox="0 0 14 14" fill="none" stroke="var(--text)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M2 10.5V12h1.5l5-5L7 5.5l-5 5z"/><path d="M10 2L12 4l-1.5 1.5L8.5 3.5 10 2z"/>
           </svg>
         </button>
-        <button class="recent-delete" onclick="event.stopPropagation();deleteItem(${c},${a})" title="Remove">
+        <button class="recent-delete" onclick="event.stopPropagation();deleteItem(${c},${a})" title="${esc(t('removeTip'))}">
           <svg width="11" height="11" viewBox="0 0 14 14" fill="none" stroke="var(--text)" stroke-width="1.5" stroke-linecap="round">
             <polyline points="3,4 11,4"/><path d="M5 4V3h4v1"/><path d="M4 4l.7 7.5h4.6L10 4"/>
           </svg>
@@ -187,3 +187,5 @@ function renderRecent() {
     </div>`;
   }).join('');
 }
+
+onLangChange(renderRecent);
