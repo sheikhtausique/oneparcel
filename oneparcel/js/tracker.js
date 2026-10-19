@@ -160,7 +160,7 @@ function initEmpty() {
   root.style.setProperty('--card-border-color',  'rgba(100,100,120,0.2)');
 
   document.getElementById('trackerCard').classList.add('idle');
-  document.getElementById('heroAccent').textContent = 'your';
+  document.getElementById('heroAccent').textContent = 'courier';
   document.getElementById('tagText').textContent = 'Select a courier to begin';
   document.getElementById('heroSub').textContent = 'Choose your courier below to get started.';
   document.getElementById('chipLabel').textContent = 'No courier selected';
