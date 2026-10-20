@@ -2,6 +2,27 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
+<script>
+/* Runs before the page is drawn: lets the header and (for Hindi/Bengali) the page stay hidden
+   until the right language and sizes are applied, so nothing flashes or jumps on load. */
+(function () {
+  var d = document.documentElement;
+  d.classList.add('js');
+  try {
+    var s = localStorage.getItem('oneparcel_lang');
+    if (s !== 'en' && s !== 'hi' && s !== 'bn') {
+      s = 'en';
+      var prefs = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || 'en'];
+      for (var i = 0; i < prefs.length; i++) {
+        var b = String(prefs[i]).toLowerCase().split('-')[0];
+        if (b === 'en' || b === 'hi' || b === 'bn') { s = b; break; }
+      }
+    }
+    if (s !== 'en') d.classList.add('wait-lang');
+  } catch (e) {}
+  setTimeout(function () { d.classList.add('ready'); }, 5000);   // safety: never stay hidden
+})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <title>OneParcel by CuriosityLabs</title>
 <link rel="icon" href="favicon/favicon.ico" sizes="32x32"/>

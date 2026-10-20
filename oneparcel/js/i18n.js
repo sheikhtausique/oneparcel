@@ -69,7 +69,7 @@ const I18N = {
   },
 
   hi: {
-    navHome: 'होम', navCouriers: 'कूरियर', navHow: 'कैसे काम करता है', navTrack: 'पार्सल ट्रैक करें',
+    navHome: 'होम', navCouriers: 'कूरियर', navHow: 'कैसे चलता है', navTrack: 'ट्रैक करें',
     langTitle: 'भाषा', themeTitle: 'लाइट/डार्क मोड बदलें', homeTip: 'ऊपर जाएँ',
 
     liveTag: 'लाइव शिपमेंट ट्रैकिंग',
@@ -130,7 +130,7 @@ const I18N = {
   },
 
   bn: {
-    navHome: 'হোম', navCouriers: 'কুরিয়ার', navHow: 'কীভাবে কাজ করে', navTrack: 'পার্সেল ট্র্যাক করুন',
+    navHome: 'হোম', navCouriers: 'কুরিয়ার', navHow: 'কীভাবে কাজ করে', navTrack: 'ট্র্যাক করুন',
     langTitle: 'ভাষা', themeTitle: 'লাইট/ডার্ক মোড পরিবর্তন করুন', homeTip: 'উপরে যান',
 
     liveTag: 'লাইভ শিপমেন্ট ট্র্যাকিং',
@@ -248,6 +248,8 @@ function applyTranslations(silent) {
   if (!silent) {
     langListeners.forEach(fn => { try { fn(); } catch (e) { console.error(e); } });
     window.dispatchEvent(new Event('resize'));   // lets the header and headings re-fit
+    // The Hindi and Bengali fonts may still be downloading: fit again once they arrive
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => window.dispatchEvent(new Event('resize')));
   }
 }
 
@@ -261,6 +263,7 @@ function setLang(code) {
 
 // ── Language menu (opens from the globe button in the header) ──
 let langMenu = null;
+let menuScrollY = 0;
 
 function renderLangMenu() {
   if (!langMenu) return;
@@ -288,6 +291,7 @@ function initLangMenu() {
   btn.addEventListener('click', e => {
     e.stopPropagation();
     const open = !langMenu.classList.contains('open');
+    menuScrollY = window.scrollY;
     langMenu.classList.toggle('open', open);
     btn.setAttribute('aria-expanded', String(open));
   });
@@ -297,7 +301,9 @@ function initLangMenu() {
   });
   document.addEventListener('click', e => { if (!langMenu.contains(e.target)) closeLangMenu(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLangMenu(); });
-  window.addEventListener('scroll', closeLangMenu, { passive: true });
+  window.addEventListener('scroll', () => {
+    if (langMenu.classList.contains('open') && Math.abs(window.scrollY - menuScrollY) > 12) closeLangMenu();
+  }, { passive: true });
 }
 
 // Scripts sit at the end of the page, so the elements already exist and the
@@ -306,4 +312,17 @@ currentLang = detectLang();
 initLangMenu();
 applyTranslations(true);
 window.addEventListener('resize', fitHero);
+
+// Show the page once everything is sized: after load, and once the fonts have arrived (or 0.8s at most)
+function revealPage() {
+  window.dispatchEvent(new Event('resize'));
+  requestAnimationFrame(() => document.documentElement.classList.add('ready'));
+}
+window.addEventListener('load', () => {
+  const fonts = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+  Promise.race([fonts, new Promise(r => setTimeout(r, 800))]).then(revealPage);
+});
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitHero);
+if (document.fonts && document.fonts.addEventListener) {
+  document.fonts.addEventListener('loadingdone', () => window.dispatchEvent(new Event('resize')));
+}

@@ -60,8 +60,11 @@ body {
   font-family: var(--sans);
   min-height: 100vh;
   overflow-x: hidden;
-  transition: background 0.3s, color 0.3s;
+  transition: background 0.3s, color 0.3s, opacity 0.2s;
 }
+
+/* Hindi / Bengali visitors: no flash of English while the translation is applied */
+html.wait-lang:not(.ready) body { opacity: 0; }
 
 body::before {
   content: '';

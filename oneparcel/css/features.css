@@ -92,6 +92,23 @@ footer {
 
 .footer-links a:hover { color: var(--text2); }
 
+/* GITHUB LINK */
+.footer-github {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 0.5rem;
+  padding: 9px 16px;
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  color: var(--text2);
+  font-size: 13px;
+  text-decoration: none;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.footer-github:hover { color: var(--text); border-color: var(--text3); }
+
 @media (max-width: 600px) {
   .features h2 { font-size: 1.25rem; }
 }

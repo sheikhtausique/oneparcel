@@ -51,6 +51,13 @@ nav {
   border-radius: 20px;
 }
 
+/* Header: stay hidden until the language and sizes are applied (set by i18n.js), then fade in */
+.nav-logo, .nav-right { transition: opacity 0.2s ease; }
+html.js:not(.ready) .nav-logo,
+html.js:not(.ready) .nav-right { opacity: 0; }
+
+.nav-link, .nav-cta { white-space: nowrap; }
+
 .nav-link {
   font-size: 13px;
   color: var(--text2);
@@ -66,11 +73,11 @@ nav {
   font-size: 13px;
   font-weight: 500;
   color: #fff;
-  background: var(--accent-color, var(--blue));
+  background: var(--blue);
   padding: 8px 16px;
   border-radius: 9px;
   text-decoration: none;
-  transition: background 0.4s, filter 0.15s;
+  transition: filter 0.15s;
 }
 
 .nav-cta:hover { filter: brightness(0.9); }
