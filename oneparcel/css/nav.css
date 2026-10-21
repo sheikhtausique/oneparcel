@@ -176,7 +176,8 @@ html.js:not(.ready) .nav-right { opacity: 0; }
   z-index: 1;
 }
 
-.theme-toggle.light-mode .theme-toggle-thumb { left: calc(100% - 27px); }
+.theme-toggle.light-mode .theme-toggle-thumb,
+:root.light .theme-toggle-thumb { left: calc(100% - 27px); }
 
 .theme-icon {
   position: absolute;
@@ -192,8 +193,13 @@ html.js:not(.ready) .nav-right { opacity: 0; }
 .theme-icon-moon { left: 3px; color: white; opacity: 1; }
 .theme-icon-sun  { right: 3px; color: #7a7a88; opacity: 0.7; }
 
-.theme-toggle.light-mode .theme-icon-moon { color: #7a7a88; opacity: 0.7; }
-.theme-toggle.light-mode .theme-icon-sun  { color: #44444e; opacity: 1; }
+.theme-toggle.light-mode .theme-icon-moon,
+:root.light .theme-icon-moon { color: #7a7a88; opacity: 0.7; }
+.theme-toggle.light-mode .theme-icon-sun,
+:root.light .theme-icon-sun  { color: #44444e; opacity: 1; }
+
+:root.light #logoCloud  { display: none !important; }
+:root.light #logoParcel { display: block !important; }
 
 @media (max-width: 600px) {
   nav { padding: 0 1rem; }

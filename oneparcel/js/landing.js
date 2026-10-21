@@ -5,7 +5,7 @@
   wrap.innerHTML = Object.entries(couriers).map(([key, c]) => {
     let site = '';
     try { site = new URL(c.url('x')).hostname.replace(/^www\./, ''); } catch {}
-    return `<a class="ledger-row" href="track.html?courier=${key}" style="--c:${c.hex};">
+    return `<a class="ledger-row" href="track?courier=${key}" style="--c:${c.hex};">
       <span class="ledger-dot"></span>
       <span class="ledger-name">${c.name}</span>
       <span class="ledger-site">${site}</span>

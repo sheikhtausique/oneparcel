@@ -1,6 +1,8 @@
 const RECENT_KEY = 'courier_tracker_recent';
 const PINNED_KEY = 'courier_tracker_pinned';
+const LABELS_KEY = 'courier_tracker_labels';
 const MAX_RECENT = 5;
+const MAX_LABELS = 100;
 
 // ── HELPERS ──
 function esc(v) {
@@ -22,42 +24,80 @@ function getRecent() {
   catch { return []; }
 }
 
-// A shipment's label lives on its recent entry and/or its pinned entry
-function findLabel(courier, awb) {
-  const r = getRecent().find(x => sameItem(x, courier, awb));
-  const p = getPinned().find(x => sameItem(x, courier, awb));
-  return (r && r.label) || (p && p.label) || '';
+// ── LABELS ──
+// Names are kept in one place, apart from the recent and pinned lists, so a name
+// shows the same way whether a shipment is pinned or not, and survives reloads.
+const labelKey = (courier, awb) => `${courier}|${awb}`;
+
+function getLabels() {
+  try {
+    const o = JSON.parse(localStorage.getItem(LABELS_KEY));
+    return (o && typeof o === 'object' && !Array.isArray(o)) ? o : {};
+  } catch { return {}; }
 }
 
+function labelOf(courier, awb) {
+  return getLabels()[labelKey(courier, awb)] || '';
+}
+
+function setLabel(courier, awb, label) {
+  const m = getLabels();
+  const k = labelKey(courier, awb);
+  delete m[k];
+  if (label) m[k] = label;
+  const keys = Object.keys(m);
+  if (keys.length > MAX_LABELS) keys.slice(0, keys.length - MAX_LABELS).forEach(x => delete m[x]);
+  write(LABELS_KEY, m);
+}
+
+// Earlier versions saved the name inside each recent / pinned entry. Move those into the label store.
+(function migrateLabels() {
+  const m = getLabels();
+  let changed = false;
+  [RECENT_KEY, PINNED_KEY].forEach(key => {
+    let list;
+    try { list = JSON.parse(localStorage.getItem(key)) || []; } catch { list = []; }
+    let listChanged = false;
+    list.forEach(e => {
+      if (e && e.label !== undefined) {
+        const k = labelKey(e.courier, e.awb);
+        if (e.label && m[k] === undefined) { m[k] = e.label; changed = true; }
+        delete e.label;
+        listChanged = true;
+      }
+    });
+    if (listChanged) write(key, list);
+  });
+  if (changed) write(LABELS_KEY, m);
+})();
+
 function saveRecent(courier, awb) {
-  const label = findLabel(courier, awb);
   let list = getRecent().filter(r => !sameItem(r, courier, awb));
-  const entry = { courier, awb, name: couriers[courier].name, hex: couriers[courier].hex };
-  if (label) entry.label = label;   // keep the name when the same number is tracked again
-  list.unshift(entry);
+  list.unshift({ courier, awb, name: couriers[courier].name, hex: couriers[courier].hex });
   if (list.length > MAX_RECENT) list = list.slice(0, MAX_RECENT);
   write(RECENT_KEY, list);
   renderRecent();
 }
 
-// Remove a shipment completely: from recent and from pinned
+// Remove a shipment completely: from recent, from pinned, and its name
 function deleteItem(courier, awb) {
   write(RECENT_KEY, getRecent().filter(r => !sameItem(r, courier, awb)));
   write(PINNED_KEY, getPinned().filter(p => !sameItem(p, courier, awb)));
+  setLabel(courier, awb, '');
   renderRecent();
 }
 
 function clearAllRecent() {
-  try { localStorage.removeItem(RECENT_KEY); localStorage.removeItem(PINNED_KEY); } catch {}
+  try {
+    localStorage.removeItem(RECENT_KEY);
+    localStorage.removeItem(PINNED_KEY);
+    localStorage.removeItem(LABELS_KEY);
+  } catch {}
   renderRecent();
 }
 
+// Tapping a saved shipment opens its tracking page. The entry form is left alone.
 function useRecent(courier, awb) {
-  selectCourier(courier);
-  document.getElementById('awb').value = awb;
-  document.getElementById('clearBtn').style.display = 'flex';
-  document.getElementById('pasteBtn').style.display = 'none';
-  document.getElementById('err').textContent = '';
   window.open(couriers[courier].url(awb), '_blank');
 }
 
@@ -73,10 +113,7 @@ function togglePin(courier, awb, hex, name) {
   if (exists >= 0) {
     pinned.splice(exists, 1);
   } else {
-    const entry = { courier, awb, hex, name };
-    const label = findLabel(courier, awb);
-    if (label) entry.label = label;   // a pinned shipment keeps its name
-    pinned.unshift(entry);
+    pinned.unshift({ courier, awb, hex, name });
     if (pinned.length > 5) pinned = pinned.slice(0, 5);
   }
   write(PINNED_KEY, pinned);
@@ -90,7 +127,7 @@ function openLabelModal(courier, awb) {
   labelTarget = { courier, awb };
   const name = couriers[courier] ? couriers[courier].name : courier;
   document.getElementById('labelModalMeta').textContent = `${name} · ${awb}`;
-  document.getElementById('labelInput').value = findLabel(courier, awb);
+  document.getElementById('labelInput').value = labelOf(courier, awb);
   document.getElementById('labelModalOverlay').classList.add('visible');
   setTimeout(() => document.getElementById('labelInput').focus(), 100);
 }
@@ -104,14 +141,7 @@ function saveLabelModal() {
   if (!labelTarget) return;
   const { courier, awb } = labelTarget;
   const label = document.getElementById('labelInput').value.trim();
-  const apply = list => list.map(x => {
-    if (!sameItem(x, courier, awb)) return x;
-    const next = { ...x };
-    if (label) next.label = label; else delete next.label;
-    return next;
-  });
-  write(RECENT_KEY, apply(getRecent()));
-  write(PINNED_KEY, apply(getPinned()));
+  setLabel(courier, awb, label);
   renderRecent();
   closeLabelModal();
 }
@@ -120,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderRecent();   // show saved shipments as soon as the page opens
 
   document.getElementById('labelInput').addEventListener('keydown', e => {
-    if (e.key === 'Enter') saveLabelModal();
+    if (e.key === 'Enter' && !e.isComposing && e.keyCode !== 229) saveLabelModal();
     if (e.key === 'Escape') closeLabelModal();
   });
 
@@ -133,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // or when another tab changes it
 window.addEventListener('pageshow', e => { if (e.persisted) renderRecent(); });
 window.addEventListener('storage', e => {
-  if (e.key === RECENT_KEY || e.key === PINNED_KEY) renderRecent();
+  if (e.key === RECENT_KEY || e.key === PINNED_KEY || e.key === LABELS_KEY) renderRecent();
 });
 
 // ── RENDER ──
@@ -151,8 +181,9 @@ function renderRecent() {
   if (!combined.length) { section.style.display = 'none'; return; }
   section.style.display = 'block';
 
+  const labels = getLabels();
   container.innerHTML = combined.map((r) => {
-    const label  = r.label || '';
+    const label  = labels[labelKey(r.courier, r.awb)] || '';
     const pinCol = r._pinned ? 'var(--accent-color,#0066CC)' : 'var(--text)';
     const c = arg(r.courier), a = arg(r.awb);
     return `
