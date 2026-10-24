@@ -70,7 +70,7 @@
 }
 
 .label-modal-btns button:last-child {
-  background: var(--accent-color, var(--blue));
+  background-color: var(--accent-color, var(--blue));
   color: white;
 }
 
@@ -197,7 +197,7 @@
 .pwa-install-btn {
   height: 32px; padding: 0 14px;
   border-radius: 8px; border: none;
-  background: var(--accent-color, var(--blue));
+  background-color: var(--accent-color, var(--blue));
   color: white; font-family: var(--sans);
   font-size: 12px; font-weight: 600;
   cursor: pointer; white-space: nowrap;

@@ -38,6 +38,24 @@ function clearInput() {
   err.textContent = '';
 }
 
+// ── BACKGROUND GLOW: the old and new colour cross-fade (two layers, opacity only) ──
+const glowLayers = [...document.querySelectorAll('.glow-layer')];
+let glowActive = 0;
+let glowColour = null;
+function setGlow(color) {
+  if (!glowLayers.length || color === glowColour) return;
+  if (glowColour === null) {
+    glowLayers[glowActive].style.setProperty('--c', color);   // first colour: no fade
+  } else {
+    const next = glowLayers[1 - glowActive];
+    next.style.setProperty('--c', color);
+    next.classList.add('on');
+    glowLayers[glowActive].classList.remove('on');
+    glowActive = 1 - glowActive;
+  }
+  glowColour = color;
+}
+
 // ── SELECT COURIER ──
 function selectCourier(c, preserveInput = false) {
   activeCourier = c;
@@ -46,7 +64,7 @@ function selectCourier(c, preserveInput = false) {
   const root = document.documentElement;
 
   root.style.setProperty('--accent-color',       cfg.hex);
-  root.style.setProperty('--glow-color',         cfg.glow);
+  setGlow(cfg.glow);
   root.style.setProperty('--tag-bg',             cfg.tagBg);
   root.style.setProperty('--tag-border',         cfg.tagBorder);
   root.style.setProperty('--tag-color',          cfg.tagColor);
@@ -77,7 +95,11 @@ function selectCourier(c, preserveInput = false) {
   // Restore card if it was in empty state
   document.getElementById('trackerCard').classList.remove('idle');
 
-  document.getElementById('captchaWarning').style.display = c === 'xpressbees' ? 'flex' : 'none';
+  // courier-specific notices (shown only for that courier)
+  const notices = { xpressbees: 'captchaWarning', bluedart: 'bluedartWarning' };
+  Object.entries(notices).forEach(([key, id]) => {
+    document.getElementById(id).style.display = (c === key) ? 'flex' : 'none';
+  });
 
   err.textContent = '';
   fitHero();
@@ -152,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function initEmpty() {
   const root = document.documentElement;
   root.style.setProperty('--accent-color',       '#6b6b7a');
-  root.style.setProperty('--glow-color',         'rgba(100,100,120,0.06)');
+  setGlow('rgba(100,100,120,0.06)');
   root.style.setProperty('--tag-bg',             'rgba(100,100,120,0.08)');
   root.style.setProperty('--tag-border',         'rgba(100,100,120,0.2)');
   root.style.setProperty('--tag-color',          '#8a8a94');

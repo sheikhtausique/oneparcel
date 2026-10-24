@@ -108,7 +108,7 @@
   font-size: 9px;
   color: var(--accent-color);
   border: 1px solid var(--tag-border);
-  background: var(--tag-bg);
+  background-color: var(--tag-bg);
   border-radius: 4px;
   padding: 1px 5px;
   margin-left: 4px;

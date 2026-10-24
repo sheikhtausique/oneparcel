@@ -14,12 +14,21 @@
   position: absolute;
   width: 700px; height: 700px;
   border-radius: 50%;
-  background: radial-gradient(circle, var(--glow-color, rgba(0,102,204,0.10)) 0%, transparent 70%);
   top: 50%; left: 50%;
   transform: translate(-50%, -55%);
   pointer-events: none;
-  transition: background 0.5s;
 }
+
+/* Glow behind the headline: the old and new colour cross-fade */
+.glow-layer {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--c) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity var(--glide, 0.8s) ease-in-out;
+}
+.glow-layer.on { opacity: 1; }
 
 .hero-grid {
   position: absolute;
@@ -36,7 +45,7 @@
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  background: var(--tag-bg, var(--blue-dim));
+  background-color: var(--tag-bg, var(--blue-dim));
   border: 1px solid var(--tag-border, rgba(0,102,204,0.25));
   color: var(--tag-color, #6aabf0);
   font-family: var(--mono);
@@ -51,7 +60,7 @@
 .hero-tag-dot {
   width: 6px; height: 6px;
   border-radius: 50%;
-  background: var(--accent-color, var(--blue));
+  background-color: var(--accent-color, var(--blue));
   animation: pulse 2s infinite;
   transition: background 0.4s;
 }

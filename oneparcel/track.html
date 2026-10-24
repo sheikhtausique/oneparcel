@@ -59,7 +59,7 @@
 
 <!-- NAV -->
 <nav>
-  <a class="nav-logo" href="./">
+  <a class="nav-logo" href="index.html">
     <div class="nav-logo-icon" style="background:var(--blue);">
       <svg id="logoCloud" width="22" height="22" viewBox="0 0 24 24" fill="none">
         <path d="M6.5 19a4.5 4.5 0 01-.5-9 1 1 0 01.08-.02A6 6 0 0118 12.5 3.5 3.5 0 0117.5 19H6.5z" fill="white"/>
@@ -73,7 +73,7 @@
     <span class="nav-logo-text">OneParcel</span>
   </a>
   <div class="nav-right">
-    <a class="nav-link" href="./" data-i18n="navHome">Home</a>
+    <a class="nav-link" href="index.html" data-i18n="navHome">Home</a>
     <div class="nav-badge">by CuriosityLabs</div>
     <button class="lang-btn" id="langBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Language" title="Language" data-i18n-title="langTitle">
       <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.2"/><path d="M1.8 8h12.4M8 1.8c1.8 1.9 2.7 3.9 2.7 6.2S9.8 12.3 8 14.2C6.2 12.3 5.3 10.3 5.3 8S6.2 3.7 8 1.8z"/></svg>
@@ -102,7 +102,7 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-glow" id="heroGlow"></div>
+  <div class="hero-glow" id="heroGlow"><div class="glow-layer on" style="--c: rgba(100,100,120,0.06);"></div><div class="glow-layer"></div></div>
   <div class="hero-grid"></div>
 
   <div class="hero-tag" id="heroTag">
@@ -239,6 +239,15 @@
         <circle cx="7.5" cy="10.5" r="0.5" fill="#F97316"/>
       </svg>
       <span style="font-family:var(--mono);font-size:11px;color:#fba572;line-height:1.5;" data-i18n-html="captchaNote">Xpressbees requires a <strong>captcha verification</strong> on their website before showing tracking results.</span>
+    </div>
+
+    <div id="bluedartWarning" style="display:none;margin-top:0.75rem;background:rgba(249,115,22,0.07);border:1px solid rgba(249,115,22,0.25);border-radius:10px;padding:10px 14px;align-items:center;gap:9px;">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="#F97316" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;">
+        <path d="M7.5 1.5L13.5 12H1.5L7.5 1.5Z"/>
+        <line x1="7.5" y1="5.5" x2="7.5" y2="8.5"/>
+        <circle cx="7.5" cy="10.5" r="0.5" fill="#F97316"/>
+      </svg>
+      <span style="font-family:var(--mono);font-size:11px;color:#fba572;line-height:1.5;" data-i18n="bluedartNote">The Blue Dart website may occasionally be unavailable due to server issues. If it doesn’t load, try tracking your AWB on the DHL website instead.</span>
     </div>
 
     <hr class="card-divider"/>

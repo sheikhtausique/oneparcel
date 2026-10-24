@@ -5,7 +5,7 @@
   wrap.innerHTML = Object.entries(couriers).map(([key, c]) => {
     let site = '';
     try { site = new URL(c.url('x')).hostname.replace(/^www\./, ''); } catch {}
-    return `<a class="ledger-row" href="track?courier=${key}" style="--c:${c.hex};">
+    return `<a class="ledger-row" href="track.html?courier=${key}" style="--c:${c.hex};">
       <span class="ledger-dot"></span>
       <span class="ledger-name">${c.name}</span>
       <span class="ledger-site">${site}</span>
@@ -14,50 +14,103 @@
   }).join('');
 })();
 
-// Hero: the highlighted word and the page accent move through each courier
+// Hero: the highlighted word and the accent colour move through each courier.
+// Set CYCLE to false to keep the headline still.
 (function cycleHero() {
+  const CYCLE = true;
+  const HOLD = 5000;   // ms each courier stays (raise it to slow the changes down)
   const word = document.getElementById('heroAccent');
-  const keys = Object.keys(couriers);
+  const glows = [...document.querySelectorAll('.glow-layer')];
+  // Ordered by colour (blue, purple, red, orange, yellow, tan, green), so each change is a small step
+  const ORDER = ['bluedart', 'fedex', 'valmo', 'delhivery', 'aramex', 'xpressbees', 'amazon', 'dhl', 'ups', 'ekart'];
+  const keys = ORDER.filter(k => couriers[k]).concat(Object.keys(couriers).filter(k => !ORDER.includes(k)));
   const root = document.documentElement;
   let i = 0;
+  let currentHex = null;
+  let activeGlow = 0;
 
-  function apply(cfg) {
+  // dark text on light colours (DHL yellow, Amazon orange), white text on the rest
+  function textOn(hex) {
+    const c = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255)
+      .map(v => v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4));
+    return (0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]) > 0.3 ? '#111' : '#fff';
+  }
+
+  function setColours(cfg, first) {
     root.style.setProperty('--accent-color', cfg.hex);
-    root.style.setProperty('--glow-color',   cfg.glow);
+    root.style.setProperty('--on-accent',    textOn(cfg.hex));
     root.style.setProperty('--tag-bg',       cfg.tagBg);
     root.style.setProperty('--tag-border',   cfg.tagBorder);
     root.style.setProperty('--tag-color',    cfg.tagColor);
-    word.textContent = cfg.name;
-    fit();
+    if (first) {
+      glows[0].style.setProperty('--c', cfg.glow);
+    } else {
+      // fade the other layer in (already in the new colour) while the current one fades out
+      const next = glows[1 - activeGlow];
+      next.style.setProperty('--c', cfg.glow);
+      next.classList.add('on');
+      glows[activeGlow].classList.remove('on');
+      activeGlow = 1 - activeGlow;
+    }
   }
 
-  // The headline font is wider than the fallback, so measure and shrink if needed
-  function fit() {
-    word.style.fontSize = '';
+  // The headline font is wider than the fallback, so measure each name and shrink it if needed
+  function fitWord(el) {
+    el.style.fontSize = '';
     const hero = word.closest('.hero');
     const cs = getComputedStyle(hero);
     const avail = hero.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
-    const w = word.getBoundingClientRect().width;
-    if (w > avail) word.style.fontSize = (parseFloat(getComputedStyle(word).fontSize) * avail / w * 0.97) + 'px';
+    const w = el.getBoundingClientRect().width;
+    if (w > avail) el.style.fontSize = (parseFloat(getComputedStyle(el).fontSize) * avail / w * 0.97) + 'px';
   }
-  window.addEventListener('resize', fit);
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+  function fitAll() { word.querySelectorAll('.word').forEach(fitWord); }
+  window.addEventListener('resize', fitAll);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitAll);
 
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    word.textContent = t('courierWord');
-    onLangChange(() => { word.textContent = t('courierWord'); fit(); });
+  function makeWord(text) {
+    const el = document.createElement('span');
+    el.className = 'word';
+    el.textContent = text;
+    return el;
+  }
+
+  function show(cfg, animate) {
+    const next = makeWord(cfg.name);
+    const prev = word.querySelector('.word:not(.leave)');
+    setColours(cfg, !animate);
+
+    if (!animate || !prev) {
+      word.replaceChildren(next);
+      fitWord(next);
+      currentHex = cfg.hex;
+      return;
+    }
+
+    next.classList.add('enter');
+    word.appendChild(next);
+    fitWord(next);
+    prev.style.color = currentHex;   // the leaving name keeps its own colour
+    currentHex = cfg.hex;
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      prev.classList.add('leave');
+      next.classList.remove('enter');
+    }));
+    setTimeout(() => prev.remove(), 1100);
+  }
+
+  if (!CYCLE || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const still = () => { word.replaceChildren(makeWord(t('courierWord'))); fitAll(); };
+    still();
+    onLangChange(still);
     return;
   }
-  apply(couriers[keys[0]]);
+
+  show(couriers[keys[0]], false);
   setInterval(() => {
     if (document.hidden) return;
-    word.classList.add('swap');
-    setTimeout(() => {
-      i = (i + 1) % keys.length;
-      apply(couriers[keys[i]]);
-      word.classList.remove('swap');
-    }, 180);
-  }, 2400);
+    i = (i + 1) % keys.length;
+    show(couriers[keys[i]], true);
+  }, HOLD);
 })();
 
 // Reveal feature cards on scroll

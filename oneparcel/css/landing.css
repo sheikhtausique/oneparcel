@@ -1,3 +1,6 @@
+/* How long courier colours take to glide on the main page (raise it to slow them down) */
+:root { --glide: 1s; }
+
 /* LANDING PAGE */
 .hero.landing { min-height: 92vh; }
 
@@ -25,7 +28,7 @@
 
 .btn:active { transform: scale(0.98); }
 
-.btn-primary { background: var(--accent-color, var(--blue)); color: #fff; }
+.btn-primary { background-color: var(--accent-color, var(--blue)); color: var(--on-accent, #fff); }
 .btn-primary:hover { filter: brightness(0.9); }
 
 .btn-ghost {
@@ -35,7 +38,25 @@
 }
 .btn-ghost:hover { color: var(--text); border-color: var(--text3); }
 
-#heroAccent { display: inline-block; white-space: nowrap; transition: opacity 0.18s ease, color 0.4s; }
+/* Headline name: the old and new name cross-fade in place (opacity only, light on phones) */
+#heroAccent {
+  display: inline-grid;
+  justify-items: center;
+  white-space: nowrap;
+}
+#heroAccent .word {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+  transition: opacity 0.9s ease-in-out;
+}
+#heroAccent .word.enter, #heroAccent .word.leave { opacity: 0; }
+
+/* Colour changes use one shared timing, so everything moves together */
+.hero.landing h1 .accent { transition: none; }
+.hero.landing .hero-tag { transition: background-color var(--glide) ease-in-out, border-color var(--glide) ease-in-out, color var(--glide) ease-in-out; }
+.hero.landing .hero-tag-dot { transition: background-color var(--glide) ease-in-out; }
+.theme-toggle-thumb { transition: left 0.3s cubic-bezier(0.4,0,0.2,1), background-color var(--glide) ease-in-out; }
+.btn-primary { transition: background-color var(--glide) ease-in-out, color var(--glide) ease-in-out, filter 0.15s, transform 0.1s; }
 
 .nav-links { display: flex; align-items: center; gap: 4px; }
 #heroAccent.swap { opacity: 0; }
@@ -127,7 +148,7 @@
   font-size: 12px;
   color: var(--accent-color, var(--blue));
   margin-bottom: 0.9rem;
-  transition: color 0.4s;
+  transition: color var(--glide) ease-in-out;
 }
 
 .how-title {
@@ -162,7 +183,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  #heroAccent { transition: none; }
+  #heroAccent .word, .glow-layer { transition: none; }
   .feat-card { opacity: 1 !important; transform: none !important; transition: none; }
 }
 
