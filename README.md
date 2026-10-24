@@ -202,4 +202,4 @@ OneParcel is an independent project. It is not affiliated with or endorsed by an
 
 ## Author
 
-Built by [Tausique](https://github.com/sheikhtausique). Powered by Curiosity.
+Built by [Tausique](https:/tr.ee/profiles). Powered by Curiosity.
